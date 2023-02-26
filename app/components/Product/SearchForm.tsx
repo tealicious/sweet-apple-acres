@@ -17,7 +17,7 @@ export default function ProductSearchForm({ searchParams }: SearchParamsProps) {
 
   function updateFormValue(
     parameterLabel: string,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>|React.ChangeEvent<HTMLSelectElement>
   ) {
     setFormValues((initialState) => {
       const newState = initialState;
@@ -95,7 +95,7 @@ export default function ProductSearchForm({ searchParams }: SearchParamsProps) {
       </FieldGroup>
 
       <FieldGroup>
-        <label htmlFor="minPrice">Min Price</label>
+        <label htmlFor="minPrice">Min Price $</label>
         <input
           type="number"
           min="0"
@@ -109,7 +109,7 @@ export default function ProductSearchForm({ searchParams }: SearchParamsProps) {
       </FieldGroup>
 
       <FieldGroup>
-        <label htmlFor="maxPrice">Max Price</label>
+        <label htmlFor="maxPrice">Max Price $</label>
         <input
           type="number"
           min="0"

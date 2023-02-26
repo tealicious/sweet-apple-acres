@@ -102,6 +102,7 @@ export const ProductDetails = styled.div`
       }
     }
     .product-card__body {
+      padding-left:5rem;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -112,7 +113,7 @@ export const ProductDetails = styled.div`
 `;
 
 export const Form = styled.form`
-  margin: 5rem 0;
+  margin: 5rem -2rem;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;

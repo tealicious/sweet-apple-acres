@@ -35,9 +35,8 @@ const ModalOverlay = (props: ModalProps) => {
       >
         <img src={props.image} alt={`${props.name} product image`} />
         <div className="content">
-          <p id="dialog_label">{props.name}</p>
-          <p id="dialog_desc">{props.description}</p>
-          <p>Rating: {props.rating}/5</p>
+          <p id="dialog_label"><strong>{props.name}</strong></p>
+          <p id="dialog_desc">To add this item to your cart, first select how many units you would like to add to your order, then click the 'Add to cart' button. Or hit cancel to return the product page.</p>
           <p>
             <Price price={props.price} /> per unit
           </p>
@@ -56,7 +55,7 @@ const ModalOverlay = (props: ModalProps) => {
             ></input>
             <p>
               <strong>
-                Price: <Price price={totalCost} />
+                Total Price: <Price price={totalCost} />
               </strong>
             </p>
             <div className="form-actions">
