@@ -27,6 +27,22 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
+const SharedNav = function (props: { ariaLabel: string; className?: string }) {
+  return (
+    <MainNav aria-label={props.ariaLabel} className={props.className}>
+      <Link to={"/"} aria-label="Home Link">
+        Sweet Apple Acres
+      </Link>
+      <a href="tel:+123456789" aria-label="phone link to sweet apple acres">
+        Call @ 123-SUH-WEET
+      </a>
+      <Link to={"/cart"} aria-label="Cart Link">
+        Cart
+      </Link>
+    </MainNav>
+  );
+};
+
 export default function App() {
   return (
     <html lang="en">
@@ -37,35 +53,12 @@ export default function App() {
       </head>
       <body>
         <div id="modal-root"></div>
-        <MainNav aria-label="main nav">
-          <Link to={"/"} aria-label="Home Link">
-            Sweet Apple Acres
-          </Link>
-          <a href="tel:+123456789" aria-label="phone link to sweet apple acres">
-            Call @ 123-456-7890
-          </a>
-          <Link to={"/cart"} aria-label="Cart Link">
-            Cart
-          </Link>
-        </MainNav>
+        <SharedNav ariaLabel={"main nav"} />
         <div id="#main">
           <Outlet />
         </div>
         <footer>
-          <MainNav aria-label="footer nav" className="footer-nav">
-            <Link to={"/"} aria-label="Home Link">
-              Sweet Apple Acres
-            </Link>
-            <a
-              href="tel:+123456789"
-              aria-label="phone link to sweet apple acres"
-            >
-              Call @ 123-456-7890
-            </a>
-            <Link to={"/cart"} aria-label="Cart Link">
-              Cart
-            </Link>
-          </MainNav>
+          <SharedNav ariaLabel={"footer nav"} className="footer-nav" />
         </footer>
         <ScrollRestoration />
         <Scripts />
