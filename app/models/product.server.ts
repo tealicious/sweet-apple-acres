@@ -9,10 +9,12 @@ export function getProducts(searchQuery?: string): Promise<FetchedProduct[]> {
         "Content-Type": "application/json",
       },
     }
-  ).then((response) => response.json());
+  )
+  .then((response) => response.json())
+  .catch((e) => 'Fetch Error');
 }
 
-export function getUniqueProduct(productID: string): Promise<FetchedProduct> {
+export function getUniqueProduct(productID: string): Promise<FetchedProduct|string> {
   return fetch(
     `https://sweet-apple-acres.netlify.app/.netlify/functions/api/products/${productID}`,
     {
@@ -21,7 +23,9 @@ export function getUniqueProduct(productID: string): Promise<FetchedProduct> {
         "Content-Type": "application/json",
       },
     }
-  ).then((response) => response.json());
+  )
+  .then((response) => response.json())
+  .catch((e) => 'Fetch Error')
 }
 
 // some sort of active issue is preventing me from exporting and importing this service function:

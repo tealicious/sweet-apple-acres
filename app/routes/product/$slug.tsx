@@ -5,11 +5,13 @@ import AddProductModal from "~/components/Product/AddProductModal";
 import invariant from "tiny-invariant";
 import { ProductDetails } from "~/components/UI/UI";
 import { getUniqueProduct } from "~/models/product.server";
+import { FetchedProduct } from "~/types";
 import React from "react";
 
 export const loader = async ({ params }: LoaderArgs) => {
   invariant(params.slug, `params.slug is required`);
   const product = await getUniqueProduct(params.slug);
+  console.log(product)
   invariant(product, `product not found: ${params.slug}`);
 
   return json({ product });
@@ -17,6 +19,12 @@ export const loader = async ({ params }: LoaderArgs) => {
 
 export default function ProductSlug() {
   const { product } = useLoaderData<typeof loader>();
+  if (product === "Fetch Error") {
+    return (
+      <h1>404 not found</h1>
+    )
+  }
+  const fetchedProduct = product as FetchedProduct
   const [addingProduct, setAddingProduct] = React.useState(false);
   const addToCartButton = React.useRef<HTMLButtonElement>(null);
 
@@ -34,7 +42,7 @@ export default function ProductSlug() {
   }
 
   let purchaseButton;
-  if (product.isAvailable) {
+  if (fetchedProduct.isAvailable) {
     purchaseButton = (
       <button onClick={openAddCartModal} ref={addToCartButton}>
         Add to Cart
@@ -48,12 +56,12 @@ export default function ProductSlug() {
 
   return (
     <ProductDetails>
-      <h1>{product.name} Product Details</h1>
+      <h1>{fetchedProduct.name} Product Details</h1>
       <hr />
       {addingProduct && (
-        <AddProductModal product={product} onClose={closeAddCartModal} />
+        <AddProductModal product={fetchedProduct} onClose={closeAddCartModal} />
       )}
-      <ProductCard {...product}>{purchaseButton}</ProductCard>
+      <ProductCard {...fetchedProduct}>{purchaseButton}</ProductCard>
     </ProductDetails>
   );
 }
