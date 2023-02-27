@@ -4,6 +4,7 @@ import ProductInCart from "~/components/Cart/ProductInCart";
 import { CartProduct } from "~/types/services";
 import { ProductCartResults } from "~/components/UI/UI";
 import { PaymentForm } from "~/components/Cart/PaymentForm";
+import { ClientOnly } from "remix-utils";
 
 export default function Cart() {
   const [formHasSubmitted, setFormHasSubmitted] = React.useState(false);
@@ -29,7 +30,7 @@ export default function Cart() {
     ? "Something went wrong! :("
     : "Success! Thank you for purchasing with Sweet Apple Acres, expect your package in 10 - 12 business days!";
 
-  let productList;
+  let productList: any
   if (products.length > 0) {
     productList = (
       <ProductCartResults>
@@ -52,17 +53,21 @@ export default function Cart() {
   }
 
   return (
-    <>
-      <h1>Cart</h1>
-      {formHasSubmitted && (
+    <ClientOnly fallback={<h1>Cart</h1>}>
+      {() => (
         <>
-          <hr />
-          <strong>
-            <p>{submitMessage}</p>
-          </strong>
+          <h1>Cart</h1>
+          {formHasSubmitted && (
+            <>
+              <hr />
+              <strong>
+                <p>{submitMessage}</p>
+              </strong>
+            </>
+          )}
+          {productList}
         </>
       )}
-      {productList}
-    </>
+    </ClientOnly>
   );
 }
