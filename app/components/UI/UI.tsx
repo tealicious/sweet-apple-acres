@@ -189,6 +189,9 @@ export const Form = styled.form`
       padding-left: 2rem;
       padding-right: 2rem;
     }
+    .button-secondary {
+      margin-left:2rem;
+    }
   }
 
   .total {

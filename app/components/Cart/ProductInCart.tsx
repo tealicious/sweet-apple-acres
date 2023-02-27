@@ -1,4 +1,4 @@
-import { CartProduct } from "~/types/services";
+import { CartProduct } from "~/types";
 import Price from "~/components/UI/Price";
 import { CardBody } from "~/components/UI/UI";
 

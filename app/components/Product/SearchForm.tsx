@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ProductSearchQueryParams } from "~/types/services";
+import { ProductSearchQueryParams } from "~/types";
 import { Form, FieldGroup } from "~/components/UI/UI";
 
 interface SearchParamsProps {

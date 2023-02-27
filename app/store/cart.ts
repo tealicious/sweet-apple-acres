@@ -1,4 +1,4 @@
-import { CartProduct } from "~/types/services";
+import { CartProduct } from "~/types";
 
 export function getCurrentCart(): CartProduct[] {
   if (typeof window === 'undefined') return [];

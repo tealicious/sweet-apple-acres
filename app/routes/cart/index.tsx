@@ -1,7 +1,7 @@
 import React from "react";
 import { getCurrentCart, updateCurrentCart } from "~/store/cart";
 import ProductInCart from "~/components/Cart/ProductInCart";
-import { CartProduct } from "~/types/services";
+import { CartProduct } from "~/types";
 import { ProductCartResults } from "~/components/UI/UI";
 import { PaymentForm } from "~/components/Cart/PaymentForm";
 import { ClientOnly } from "remix-utils";

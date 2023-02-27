@@ -1,4 +1,4 @@
-import { FetchedProduct, PurchasePayload } from "~/types/services";
+import { FetchedProduct, PurchasePayload } from "~/types";
 
 export function getProducts(searchQuery?: string): Promise<FetchedProduct[]> {
   return fetch(

@@ -1,4 +1,4 @@
-import { FetchedProduct } from "~/types/services";
+import { FetchedProduct } from "~/types";
 import Price from "~/components/UI/Price";
 import { CardBody } from "~/components/UI/UI";
 

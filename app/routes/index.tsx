@@ -1,6 +1,6 @@
 import { json, LoaderArgs } from "@remix-run/node";
 import { useLoaderData, Link } from "@remix-run/react";
-import { FetchedProduct } from "~/types/services";
+import { FetchedProduct } from "~/types";
 import ProductCard from "~/components/Product/ProductCard";
 import SearchForm from "~/components/Product/SearchForm";
 import { ProductSearchResults } from "~/components/UI/UI";

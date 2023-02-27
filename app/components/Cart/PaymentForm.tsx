@@ -4,7 +4,7 @@ import {
   CartProduct,
   ProductAsPayload,
   PurchasePayload,
-} from "~/types/services";
+} from "~/types";
 import Price from "~/components/UI/Price";
 import ConfirmationModal from "~/components/UI/ConfirmationModal"
 

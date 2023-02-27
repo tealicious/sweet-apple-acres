@@ -2,7 +2,7 @@ import React from "react";
 import Price from "~/components/UI/Price";
 import ReactDOM from "react-dom";
 import { ModalWrapper } from "../UI/UI";
-import { FetchedProduct, CartProduct } from "~/types/services";
+import { FetchedProduct, CartProduct } from "~/types";
 import { getCurrentCart, updateCurrentCart } from "~/store/cart";
 
 interface ModalProps {
