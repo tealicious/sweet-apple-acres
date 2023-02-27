@@ -12,30 +12,29 @@ import { updateCurrentCart } from "~/store/cart";
 // some sort of active issue is preventing me from exporting and importing this service function: https://stackoverflow.com/questions/74911724/typeerror-0-import-jsx-dev-runtime-jsxdev-is-not-a-function - https://github.com/remix-run/remix/issues/4081
 function purchaseProducts(purchasePayload: PurchasePayload): Promise<{
   success: boolean;
-  text: string;
+  res: Error|Response;
 }> {
   return fetch(
     "https://sweet-apple-acres.netlify.app/.netlify/functions/api/orders",
     {
       method: "POST",
       body: JSON.stringify(purchasePayload),
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
     }
   )
-    .then(res => res.text())
-    .then((text) => {
+    .then((res) => {
       return {
         success: true,
-        text: text,
+        res: res,
       }
     })
     .catch((e) => {
       return {
         success: false,
-        text: e,
+        res: e,
       };
     });
 }
@@ -76,8 +75,10 @@ export function PaymentForm({
       }),
     };
     const purchase = await purchaseProducts(orderPayload);
+    debugger
     setIsPurchasing(false);
     if (purchase.success) {
+      alert('success')
     } else {
       setPurchaseAttemptFailed(true);
     }
