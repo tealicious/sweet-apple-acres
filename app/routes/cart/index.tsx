@@ -15,13 +15,17 @@ export default function Cart() {
   const [purchaseAttemptFailed, setPurchaseAttemptFailed] =
     React.useState(false);
 
-  function clearCart(orderSuccess: boolean): void {
-    setProducts(() => []);
-    updateCurrentCart([]);
+  function submitOrderHandler(orderSuccess: boolean): void {
+    clearCart();
     setFormHasSubmitted(true);
     if (!orderSuccess) {
       setPurchaseAttemptFailed(true);
     }
+  }
+
+  function clearCart(): void {
+    setProducts(() => []);
+    updateCurrentCart([]);
   }
 
   // Templating
@@ -41,7 +45,7 @@ export default function Cart() {
             </li>
           );
         })}
-        <PaymentForm products={products} onOrderSubmitted={clearCart} />
+        <PaymentForm products={products} onSubmitOrder={submitOrderHandler} onEmptyCart={clearCart} />
       </ProductCartResults>
     );
   } else {
