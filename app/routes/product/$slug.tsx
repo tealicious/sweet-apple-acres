@@ -1,10 +1,9 @@
 import { json, LoaderArgs } from "@remix-run/node";
-import { useLoaderData, Link } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import ProductCard from "~/components/Product/ProductCard";
 import AddProductModal from "~/components/Product/AddProductModal";
 import invariant from "tiny-invariant";
 import { ProductDetails } from "~/components/UI/UI";
-
 import { getUniqueProduct } from "~/models/product.server";
 import React from "react";
 
@@ -21,23 +20,17 @@ export default function ProductSlug() {
   const [addingProduct, setAddingProduct] = React.useState(false);
   const addToCartButton = React.useRef<HTMLButtonElement>(null);
 
-  function closeAddCartModal() {
+  function closeAddCartModal(): void {
     setAddingProduct(false);
     focusAddToCartButton();
   }
-  function openAddCartModal() {
+  function openAddCartModal(): void {
     setAddingProduct(true);
   }
-  function focusAddToCartButton() {
+  function focusAddToCartButton(): void {
     if (addToCartButton.current) {
       addToCartButton.current.focus();
     }
-  }
-  const clickHandler = (e: React.MouseEvent) => {
-      e.preventDefault();
-      // history.go preserves any prior search query params
-      history.go(-1)
-      // to do: check that current origin and prior window's origin match. if not, push router to the homepage rather than simulating back button
   }
 
   let purchaseButton;
@@ -56,12 +49,9 @@ export default function ProductSlug() {
   return (
     <ProductDetails>
       <h1>{product.name} Product Details</h1>
-      <a href={"/"} aria-label="Go to homepage" onClick={clickHandler}>
-        &lt; Back to all products
-      </a>
       <hr />
       {addingProduct && (
-        <AddProductModal {...product} onClose={closeAddCartModal} />
+        <AddProductModal product={product} onClose={closeAddCartModal} />
       )}
       <ProductCard {...product}>{purchaseButton}</ProductCard>
     </ProductDetails>

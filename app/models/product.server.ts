@@ -1,8 +1,6 @@
-import { FetchedProduct } from "~/types/services";
+import { FetchedProduct, PurchasePayload } from "~/types/services";
 
-export function getProducts(
-  searchQuery?: string
-): Promise<FetchedProduct[]> {
+export function getProducts(searchQuery?: string): Promise<FetchedProduct[]> {
   return fetch(
     `https://sweet-apple-acres.netlify.app/.netlify/functions/api/products${searchQuery}`,
     {
@@ -14,7 +12,7 @@ export function getProducts(
   ).then((response) => response.json());
 }
 
-export async function getUniqueProduct(productID: string): Promise<FetchedProduct> {
+export function getUniqueProduct(productID: string): Promise<FetchedProduct> {
   return fetch(
     `https://sweet-apple-acres.netlify.app/.netlify/functions/api/products/${productID}`,
     {
@@ -24,4 +22,25 @@ export async function getUniqueProduct(productID: string): Promise<FetchedProduc
       },
     }
   ).then((response) => response.json());
+}
+
+// some sort of active issue is preventing me from exporting and importing this service function:
+// https://stackoverflow.com/questions/74911724/typeerror-0-import-jsx-dev-runtime-jsxdev-is-not-a-function
+// https://github.com/remix-run/remix/issues/4081
+export function purchaseProducts(
+  purchasePayload: PurchasePayload
+): Promise<string> {
+  return fetch(
+    "https://sweet-apple-acres.netlify.app/.netlify/functions/api/orders",
+    {
+      method: "POST",
+      body: JSON.stringify(purchasePayload),
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then(() => "success")
+    .catch(() => "fail");
 }

@@ -17,7 +17,6 @@ export const loader = async ({ request }: LoaderArgs) => {
 export default function Index() {
   const { products, searchParams } = useLoaderData<typeof loader>();
 
-  //Templating
   let productList;
   if (products.length > 0) {
     productList = products.map((product: FetchedProduct) => {

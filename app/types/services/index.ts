@@ -21,4 +21,25 @@ interface FetchedProduct {
   rating: number;
 }
 
-export type { ProductSearchQueryParams, FetchedProduct };
+interface CartProduct extends FetchedProduct {
+  quantity: number;
+}
+
+interface ProductAsPayload {
+  productId: string;
+  quantity: number;
+}
+
+interface PurchasePayload {
+  name: string;
+  deliveryAddress: string;
+  items: ProductAsPayload[];
+}
+
+export type {
+  ProductSearchQueryParams,
+  FetchedProduct,
+  CartProduct,
+  ProductAsPayload,
+  PurchasePayload,
+};

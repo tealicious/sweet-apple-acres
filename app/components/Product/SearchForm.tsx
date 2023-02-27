@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ProductSearchQueryParams } from "~/types/services";
 import { Form, FieldGroup } from "~/components/UI/UI";
 
@@ -7,17 +7,29 @@ interface SearchParamsProps {
 }
 
 export default function ProductSearchForm({ searchParams }: SearchParamsProps) {
-
+  // state
   const [formValues, setFormValues] = React.useState(searchParams);
   const [isAvailableChecked, setIsAvailableChecked] = React.useState(
     formValues.isAvailable === "true"
   );
+  const [formHasReset, setFormHasReset] = React.useState(false);
 
+  // form el
   const searchFormRef = React.useRef<HTMLFormElement>(null);
 
+  // hooks
+  useEffect(() => {
+    if (formHasReset) {
+      submitForm();
+    }
+  }, [formHasReset]);
+
+  // functions
   function updateFormValue(
     parameterLabel: string,
-    e: React.ChangeEvent<HTMLInputElement>|React.ChangeEvent<HTMLSelectElement>
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) {
     setFormValues((initialState) => {
       const newState = initialState;
@@ -28,9 +40,8 @@ export default function ProductSearchForm({ searchParams }: SearchParamsProps) {
     });
   }
 
-  async function resetProductSearch() {
-    if (!searchFormRef.current) return;
-    await setFormValues((initialState) => {
+  function resetProductSearch() {
+    setFormValues((initialState) => {
       const newState = initialState;
       Object.keys(newState).forEach(function (key) {
         //@ts-ignore
@@ -38,13 +49,20 @@ export default function ProductSearchForm({ searchParams }: SearchParamsProps) {
       });
       return { ...newState };
     });
-    await setIsAvailableChecked(false);
+    setIsAvailableChecked(false);
+    setFormHasReset(true);
+  }
+
+  function submitForm() {
+    if (!searchFormRef.current) return;
     searchFormRef.current.submit();
   }
 
   function toggleAvailableProducts() {
     setIsAvailableChecked((initialState) => !initialState);
   }
+
+  // template
 
   return (
     <Form
@@ -153,23 +171,22 @@ export default function ProductSearchForm({ searchParams }: SearchParamsProps) {
         </select>
       </FieldGroup>
 
-      {formValues.orderBy && (
         <FieldGroup>
           <label htmlFor="sort">Sort ordered results by:</label>
           <select
             id="sort"
             name="sort"
-            value={formValues.sort}
+            value={formValues.orderBy ? formValues.sort : ''}
             onChange={(e) => {
               updateFormValue("sort", e);
             }}
+            disabled={!formValues.orderBy}
           >
             <option value="">Select to sort</option>
             <option value="DESC">Descending order</option>
             <option value="ASCE">Ascending order</option>
           </select>
         </FieldGroup>
-      )}
 
       <FieldGroup>
         <label htmlFor="isAvailable">
