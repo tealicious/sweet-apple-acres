@@ -28,6 +28,13 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   max-width: 60em;
+  display:flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top:auto;
 }
 
 /*

@@ -39,13 +39,34 @@ export default function App() {
         <div id="modal-root"></div>
         <MainNav aria-label="main nav">
           <Link to={"/"} aria-label="Home Link">
-            Home
+            Sweet Apple Acres
           </Link>
+          <a href="tel:+123456789" aria-label="phone link to sweet apple acres">
+            Call @ 123-456-7890
+          </a>
           <Link to={"/cart"} aria-label="Cart Link">
             Cart
           </Link>
         </MainNav>
-        <Outlet />
+        <div id="#main">
+          <Outlet />
+        </div>
+        <footer>
+          <MainNav aria-label="footer nav" className="footer-nav">
+            <Link to={"/"} aria-label="Home Link">
+              Sweet Apple Acres
+            </Link>
+            <a
+              href="tel:+123456789"
+              aria-label="phone link to sweet apple acres"
+            >
+              Call @ 123-456-7890
+            </a>
+            <Link to={"/cart"} aria-label="Cart Link">
+              Cart
+            </Link>
+          </MainNav>
+        </footer>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

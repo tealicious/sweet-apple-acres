@@ -39,7 +39,7 @@ export default function Index() {
 
   return (
     <>
-      <h1>Sweet Apple Acres</h1>
+      <h1>Search Products</h1>
       <SearchForm searchParams={searchParams}/>
       <ProductSearchResults>{productList}</ProductSearchResults>
     </>

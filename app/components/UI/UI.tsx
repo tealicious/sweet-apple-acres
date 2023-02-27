@@ -249,6 +249,18 @@ export const FieldGroup = styled.div`
 
 export const MainNav = styled.nav`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 2em;
+  a {
+    margin-left: 4rem;
+    font-weight: bold;
+    &:first-of-type {
+      margin-left: 0;
+      margin-right: auto;
+    }
+  }
+
+  &.footer-nav {
+    padding: 2rem 0 3rem;
+  }
 `;

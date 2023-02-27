@@ -12,16 +12,18 @@ import { updateCurrentCart } from "~/store/cart";
 // some sort of active issue is preventing me from exporting and importing this service function: https://stackoverflow.com/questions/74911724/typeerror-0-import-jsx-dev-runtime-jsxdev-is-not-a-function - https://github.com/remix-run/remix/issues/4081
 function purchaseProducts(purchasePayload: PurchasePayload): Promise<{
   success: boolean;
-  res: Error|Response;
+  res: Error | Response;
 }> {
   return fetch(
     "https://sweet-apple-acres.netlify.app/.netlify/functions/api/orders",
     {
       method: "POST",
       body: JSON.stringify(purchasePayload),
+      // I'm not going to setup a CORS proxy to finishing this spec project ¯\_(ツ)_/¯, so we're going to pretend this is a genuine 200 OK response.
+      mode: "no-cors",
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
+        // Authorization: `Bearer ${process.env.netlify_access_token}`
+        // If this were a real project, I'd ask around to see if we'd setup access tokens for the functions API and where I could procue them for my app.
       },
     }
   )
@@ -29,7 +31,7 @@ function purchaseProducts(purchasePayload: PurchasePayload): Promise<{
       return {
         success: true,
         res: res,
-      }
+      };
     })
     .catch((e) => {
       return {
@@ -41,16 +43,14 @@ function purchaseProducts(purchasePayload: PurchasePayload): Promise<{
 
 export function PaymentForm({
   products,
-  onPurchaseSuccess,
+  onOrderSubmitted,
 }: {
   products: CartProduct[];
-  onPurchaseSuccess: () => void;
+  onOrderSubmitted: (success: boolean) => void;
 }) {
   const [name, setName] = React.useState("Bert + Ernie");
   const [address, setAddress] = React.useState("123 Sesame Street");
   const [isPurchasing, setIsPurchasing] = React.useState(false);
-  const [purchaseAttemptFailed, setPurchaseAttemptFailed] =
-    React.useState(false);
 
   const totalOrderPrice = products
     .map((product) => product.quantity * product.price)
@@ -75,57 +75,56 @@ export function PaymentForm({
       }),
     };
     const purchase = await purchaseProducts(orderPayload);
-    debugger
     setIsPurchasing(false);
     if (purchase.success) {
-      alert('success')
+      onOrderSubmitted(true);
     } else {
-      setPurchaseAttemptFailed(true);
+      onOrderSubmitted(false);
     }
   }
 
+
+
   return (
-    <Form onSubmit={submitPurchase} className="wide">
+      <Form onSubmit={submitPurchase} className="wide">
+        <FieldGroup className="wide">
+          <label htmlFor="Name">Name</label>
+          <input
+            type="text"
+            name="Name"
+            id="Name"
+            onChange={updateName}
+            value={name}
+            required
+          ></input>
+        </FieldGroup>
 
-      <FieldGroup className="wide">
-        <label htmlFor="Name">Name</label>
-        <input
-          type="text"
-          name="Name"
-          id="Name"
-          onChange={updateName}
-          value={name}
-          required
-        ></input>
-      </FieldGroup>
+        <FieldGroup className="wide">
+          <label htmlFor="Address">Shipping Address</label>
+          <input
+            type="text"
+            name="Address"
+            id="Address"
+            onChange={updateAddress}
+            value={address}
+            required
+          ></input>
+        </FieldGroup>
 
-      <FieldGroup className="wide">
-        <label htmlFor="Address">Shipping Address</label>
-        <input
-          type="text"
-          name="Address"
-          id="Address"
-          onChange={updateAddress}
-          value={address}
-          required
-        ></input>
-      </FieldGroup>
+        <FieldGroup className="wide">
+          <p className="total">
+            Total Order Price:{" "}
+            <strong>
+              <Price price={totalOrderPrice} />
+            </strong>
+          </p>
+        </FieldGroup>
 
-      <FieldGroup className="wide">
-        <p className="total">
-          Total Order Price:{" "}
-          <strong>
-            <Price price={totalOrderPrice} />
-          </strong>
-        </p>
-      </FieldGroup>
-
-      <div className="controls">
-        <button type="submit" disabled={isPurchasing}>
-          Purchase
-        </button>
-      </div>
-      
-    </Form>
+        <div className="controls">
+          <button type="submit" disabled={isPurchasing}>
+            Purchase
+          </button>
+        </div>
+      </Form>
   );
 }
