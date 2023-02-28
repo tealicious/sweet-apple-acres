@@ -8,7 +8,6 @@ import {
 import Price from "~/components/UI/Price";
 import ConfirmationModal from "~/components/UI/ConfirmationModal"
 
-// import { purchaseProducts } from "~/models/product.server";
 // some sort of active issue is preventing me from exporting and importing this service function: https://stackoverflow.com/questions/74911724/typeerror-0-import-jsx-dev-runtime-jsxdev-is-not-a-function - https://github.com/remix-run/remix/issues/4081
 function purchaseProducts(purchasePayload: PurchasePayload): Promise<{
   success: boolean;

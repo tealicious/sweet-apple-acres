@@ -1,5 +1,7 @@
 import { CartProduct } from "~/types";
 
+// localStorage: a poor man's persisted state
+
 export function getCurrentCart(): CartProduct[] {
   if (typeof window === 'undefined') return [];
   const localStorage = window.localStorage;

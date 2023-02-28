@@ -1,6 +1,19 @@
 # Welcome to Remix!
 
+- [Staged Project](https://clinquant-sable-606b9c.netlify.app/)
 - [Remix Docs](https://remix.run/docs)
+
+## Notes
+
+```
+I chose to build this in Remix because it was listed in your enjoyed technologies list found in the job description. I had 0 experience with this framework. My feelings on Remix are… mixed so far.
+
+I consider this to be a ‘minimal viable product’, which is to say, a bare minimal interpretation of features needed to complete the provided business requirements. Rather than spend time polishing the UI, I tried to make sure accessibility targets were hit such as color contrast ratios, keyboard accessibility standards, and appropriate aria labels for screen readers.
+
+Your code standards page suggested that unit and e2e testing are very important at Wander, so I chose to write some example e2e tests which run against the staged URL shared for this repository. The job description only emphasized e2e testing, so I forwent writing spec unit tests at this time. Again, I used Playwright because it was listed in your enjoyed technologies stack, but do not have any prior experience with it (I have only used Cypress and Jest).
+
+I chose to use the provided REST API because I have more experience with them, but got almost to the end before I realized, due to CORS, I can’t actually submit anything to that POST endpoint. If that was an intended gotcha, I’d love to know what you were looking for there as a solution (see my notes @ app/components/Cart/PaymentForm.tsx lines 11, 21, & 24).
+```
 
 ## Development
 
@@ -18,19 +31,9 @@ npm run dev
 
 Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
 
-The Netlify CLI builds a production version of your Remix App Server and splits it into Netlify Functions that run locally. This includes any custom Netlify functions you've developed. The Netlify CLI runs all of this in its development mode.
-
-```sh
-netlify dev
-```
-
-Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
-
-Note: When running the Netlify CLI, file changes will rebuild assets, but you will not see the changes to the page you are on unless you do a browser refresh of the page. Due to how the Netlify CLI builds the Remix App Server, it does not support hot module reloading.
-
 ## E2E Tests
 
-Run business requirement unit tests against staged app
+Run business requirement e2e tests against staged app and open results
 
 ```sh
 npm run test:e2e
