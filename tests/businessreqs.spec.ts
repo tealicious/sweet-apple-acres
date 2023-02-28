@@ -25,7 +25,7 @@ test("allows user to view a prodcut's details from the list of browsable product
   await expect(page).toHaveURL(/.*1e780016-94ef-4063-9fbb-fbafbabb636e/);
 });
 
-test("allows user to add an item to their cart", async ({ page }) => {
+test("allows user to add an item to their cart, then place an order", async ({ page }) => {
   // Go to Crate of Corn product detail page
   await page.goto(
     "https://clinquant-sable-606b9c.netlify.app/product/1e780016-94ef-4063-9fbb-fbafbabb636e"
@@ -63,10 +63,6 @@ test("allows user to add an item to their cart", async ({ page }) => {
   await page.waitForSelector(productQuantitySelector);
   const productQuantityText = await page.textContent(productQuantitySelector);
   expect(productQuantityText).toContain(expectedQuantity);
-});
-
-test("allows user to place an order", async ({ page }) => {
-  await page.goto("https://clinquant-sable-606b9c.netlify.app/cart");
 
   // Click the get Purchase button.
   const purchaseButton = await page.waitForSelector(
