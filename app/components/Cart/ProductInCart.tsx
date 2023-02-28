@@ -12,9 +12,9 @@ export default function ProductCard(props: ProductCardProps) {
     <div className='product-card'>
       <img src={props.image} alt={`${props.name} product image`} />
       <CardBody className="product-card__body">
-        <p><strong>{props.name}</strong></p>
+        <p className="name"><strong>{props.name}</strong></p>
         <p>Rating: {props.rating}/5</p>
-        <p>Quantity in cart: <strong>{props.quantity}</strong></p>
+        <p className="quantity">Quantity in cart: <strong>{props.quantity}</strong></p>
         <p>
           Price: <strong><Price price={props.price * props.quantity} /></strong>
         </p>

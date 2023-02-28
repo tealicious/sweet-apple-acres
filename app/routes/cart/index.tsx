@@ -65,7 +65,7 @@ export default function Cart() {
             <>
               <hr />
               <strong>
-                <p>{submitMessage}</p>
+                <p className="order-submitted-message">{submitMessage}</p>
               </strong>
             </>
           )}

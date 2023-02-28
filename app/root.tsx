@@ -54,7 +54,7 @@ export default function App() {
       <body>
         <div id="modal-root"></div>
         <SharedNav ariaLabel={"main nav"} />
-        <div id="#main">
+        <div id="main">
           <Outlet />
         </div>
         <footer>

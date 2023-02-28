@@ -11,19 +11,19 @@ import React from "react";
 export const loader = async ({ params }: LoaderArgs) => {
   invariant(params.slug, `params.slug is required`);
   const product = await getUniqueProduct(params.slug);
-  console.log(product)
   invariant(product, `product not found: ${params.slug}`);
+
+  if (product === "Fetch Error") {
+    throw new Response('404 Not Found', {
+        status: 404,
+    })
+}
 
   return json({ product });
 };
 
 export default function ProductSlug() {
   const { product } = useLoaderData<typeof loader>();
-  if (product === "Fetch Error") {
-    return (
-      <h1>404 not found</h1>
-    )
-  }
   const fetchedProduct = product as FetchedProduct
   const [addingProduct, setAddingProduct] = React.useState(false);
   const addToCartButton = React.useRef<HTMLButtonElement>(null);
